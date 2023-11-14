@@ -1,0 +1,11 @@
+andi t0, s1, 0b1_0000_0000
+beq else, t0, x0
+andi s1, s1, 0x1FF
+beq done x0, x0
+else:
+	ori s1, s1, 0xFFFFFE00
+done:
+
+
+
+

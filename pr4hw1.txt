@@ -1,0 +1,22 @@
+li s2, 0	# load 0 into s2 (i=0)
+li t0, 0x91	# load 0x91 into t0 (mask for if condition)
+xor s3, s3, s3	# initializes s3 to 0 (r=0)
+
+loop_start:
+	bge s2, s1, loop_end	# brand to loop_end if i >= a
+	and t1, s2, t0		# calculate (i & 0x91)
+	bnez t1, if_branch	# branch to if_branch if (i & 0x91)!=0
+
+else_branch:
+	srl s3, s3, 4		# shift r right by 4 (r>>4=4)
+	j end_of_iteration 	# jump to end
+
+if_branch:
+	xor s3, s3, s2 		# XOR r with i (r ^= i)
+	end_of_iteratoin:
+
+	# increment i
+	addi s2, s2, 1		# i += 1
+	j loop_start		# jump back to loop_start
+
+loop_end:
